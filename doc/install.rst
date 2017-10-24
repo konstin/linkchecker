@@ -1,36 +1,44 @@
 Installation
 ============
-If you are upgrading from older versions of LinkChecker you should
-also read the upgrading documentation stored in upgrading.txt.
+Check upgrading.txt for upgrading from older releases.
 
-Setup with pip
+With pip
 ------------------
-If pip_ is available, this command should install LinkChecker on
-the local system:
+This requires pip_, the python development headers and a C compiler to be
+installed. On Debian based systems, those can be installed with
+``sudo apt-get install python python-pip python-dev``.
 
 .. _pip: https://pypi.python.org/pypi/pip
 
-``sudo pip install LinkChecker``
+Please note that the version curently published on pypi is the abandoned base
+of this fork, so you need to install linkchecker directly from the repository.
 
-Note that this needs the Python development and a C compiler installed.
-For example on Debian Linux systems use ``sudo apt-get install python-dev``.
+Global installation:
+
+``sudo pip install -e git+git@github.com:linkcheck/linkchecker.git#egg=linkchecker``
+
+Installing only for your user (you might need to add it to ``$PATH`` manually):
+
+``pip install --user -e git+git@github.com:linkcheck/linkchecker.git#egg=linkchecker``
 
 
-Setup for Windows
+Windows
 -----------------
-Execute ``LinkChecker-x.y.exe`` and follow the instructions.
+Donwload and install the binary from the website_.
+
+.. _website: https://linkcheck.github.io/linkchecker/
 
 
-Setup for Mac OS X
+Mac OS X
 ------------------
 Nobody is currently offering a "dmg" download for Mac OS X in your programs folder
 See https://github.com/linkcheck/linkchecker/issues/60
 ...however the steps for compiling it from source are given below.
 
-Setup for GNU/Linux
+GNU/Linux
 -------------------
 On all major Linux distributions (Debian, Mandriva, Redhat, Suse, Ubuntu),
-the ``linkchecker`` package is available for install.
+a ``linkchecker`` package is available.
 
 
 Manual setup for Unix systems
@@ -38,19 +46,19 @@ Manual setup for Unix systems
 First, install the required software.
 
 1. You need a standard GNU development environment with
-   
+
    - C compiler (for example the GNU C Compiler gcc)
-     
+
      Depending on your distribution, several development packages
      might be needed to provide a fully functional C development
      environment.
-   
+
    Note for developers: if you want to regenerate the po/linkchecker.pot
    template from the source files, you will need xgettext with Python
    support. This is available in gettext >= 0.12.
 
 2. Python >= 2.7.2 from http://www.python.org/
-   
+
    Be sure to also have installed the included distutils module.
    On most distributions, the distutils module is included in
    an extra ``python-dev`` package.
@@ -77,7 +85,7 @@ First, install the required software.
 Now install the application.
 
 1. Compile Python modules
-   
+
    Run ``python setup.py sdist --manifest-only`` to create the MANIFEST
    file.
    Run ``python setup.py build`` to compile the Python files.
@@ -88,27 +96,25 @@ Now install the application.
 
 2.
    a) Installation as root
-      
+
       Run ``sudo python setup.py install`` to install LinkChecker.
-   
+
    b) Installation as a normal user
-      
+
       Run ``python setup.py install --home $HOME``. Note that you have
       to adjust your PATH and PYTHONPATH environment variables, eg. by
       adding the commands ``export PYTHONPATH=$HOME/lib/python`` and
       ``export PATH=$PATH:$HOME/bin`` to your shell configuration
       file.
-      
+
       For more information look at the `Modifying Python's search path`_
       documentation.
-      
+
       .. _Modifying Python's search path:
          http://docs.python.org/inst/search-path.html#SECTION000410000000000000000
 
 
-After installation
-------------------
-LinkChecker is now installed. Have fun!
+3. LinkChecker is now installed. Have fun!
 
 Manual setup for OSX systems
 ----------------------------
@@ -116,7 +122,7 @@ Manual setup for OSX systems
 1. Install the XCode developer tools
 
 2. Install homebrew_
-   
+
    .. _homebrew: http://mxcl.github.com/homebrew/
 
 3. Install dependencies
@@ -127,21 +133,23 @@ Manual setup for OSX systems
    # link gettext or put the msgfmt binary in your PATH
    brew link --force gettext
 
-4. Install py2app 
+4. Install py2app
    (from http://svn.pythonmac.org/py2app/py2app/trunk/doc/index.html#installation)
    Requires 'easy_install' --
-   $ curl -O http://peak.telecommunity.com/dist/ez_setup.py
-   $ sudo python ez_setup.py -U setuptools
+   ``curl -O http://peak.telecommunity.com/dist/ez_setup.py``
+   ``sudo python ez_setup.py -U setuptools``
    Now install py2app:
-   $ sudo easy_install -U py2app
+   ``sudo easy_install -U py2app``
 
-5. git clone git@github.com:wummel/linkchecker.git linkchecker
+5. Clone the repository (``git clone git@github.com:linkchecker/linkchecker.git``)
 
-6. cd linkchecker
+6. ``cd linkchecker``
 
-7. Run ``pip install -r requirements.txt --use-mirrors`` and after that ``make app``
+7. ``pip install -r requirements.txt --use-mirrors``
 
-8. Install the resulting .dmg
+8. ``make app``
+
+9. Install the resulting .dmg
 
    # mount DMG
    mkdir -p dist/mnt
@@ -165,7 +173,7 @@ to run the script.
    Allowing a WSGI script to execute such a program for possibly a
    large number of users might deplete those resources.
    Be sure to only allow access from trusted sites to this script.
-   
+
 2. Copy the script lc.wsgi in the WSGI directory.
 
 3. Adjust the "action=..." parameter in lconline/lc_cgi.html
@@ -179,7 +187,7 @@ to run the script.
    check button.
 
 6. If something goes wrong, check the following:
-   
+
    a) look in the error log of your web server
    b) be sure that you have enabled WSGI support in your web server,
       for example by installing mod_wsgi for Apache
